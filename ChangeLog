@@ -1,3 +1,9 @@
+2012-01-12  Wolfgang Sourdeau  <wsourdeau@inverse.ca>
+
+	* chrome/content/addressbook/addressbook-overlay.js
+	(SIOnLoadHandler): checkAvailability is now callback based, we
+	therefore must enable the toolbar via a callback function.
+
 2011-12-07  Wolfgang Sourdeau  <wsourdeau@inverse.ca>
 
 	* chrome/content/calendar/calendars-list-overlay.js

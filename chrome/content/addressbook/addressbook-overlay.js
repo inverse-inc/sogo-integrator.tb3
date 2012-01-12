@@ -235,8 +235,9 @@ function SIOnLoadHandler() {
 
 	let toolbar = document.getElementById("subscriptionToolbar");
 	if (toolbar) {
+		toolbar.collapsed = true;
 		let ABChecker = new directoryChecker("Contacts");
-		toolbar.collapsed = !ABChecker.checkAvailability();
+		ABChecker.checkAvailability(function() { toolbar.collapsed = false; });
 	}
 }
 
