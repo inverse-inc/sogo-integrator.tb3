@@ -58,6 +58,18 @@ function manageCalendarACL() {
                     rolesDialogURL: "chrome://sogo-integrator/content/calendar/roles-dialog.xul"});
     } else {
         aclMgr.refresh(url);
+
+        /* We hackishly complete the release of the calendar ACL entry. The
+         reason for this is that even though the original entry has been
+         released, it is still referenced as calDavCalendar.mACLEntry while
+         marked as invalidated. */
+        let jsCalendar = calendar.wrappedJSObject;
+        if (jsCalendar.mUncachedCalendar) {
+            jsCalendar = jsCalendar.mUncachedCalendar.wrappedJSObject;
+        }
+        if (jsCalendar.mACLEntry) {
+            jsCalendar.mACLEntry = null;
+        }
     }
 }
 

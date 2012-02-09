@@ -1,3 +1,14 @@
+2012-02-08  Wolfgang Sourdeau  <wsourdeau@inverse.ca>
+
+	* chrome/content/calendar/calendar-overlay.js (manageCalendarACL):
+	drop the reference to the the ACL entry stored in the calendar
+	object, as they are marked invalid.
+
+2012-02-06  Wolfgang Sourdeau  <wsourdeau@inverse.ca>
+
+	* chrome/content/general/subscription-utils.js (subscriptionURL):
+	properly encode the folder url part with encodeURIComponent.
+
 2012-01-12  Wolfgang Sourdeau  <wsourdeau@inverse.ca>
 
 	* chrome/content/addressbook/addressbook-overlay.js
