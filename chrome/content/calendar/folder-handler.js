@@ -66,12 +66,25 @@ CalendarHandler.prototype = {
                                                               properties,
                                                               isNew) {
         let displayName = properties['displayName'];
+        let color = null;
         let props = properties.additional;
-        let color;
-        if (props && props[0])
-            color = props[0].substr(0, 7).toUpperCase(); /* calendar-color */
-        else
-            color = null;
+        if (props) {
+            if (props[0]) {
+                color = props[0].substr(0, 7).toUpperCase(); /* calendar-color */
+            }
+            let sogoProps = ["notify-on-personal-modifications",
+                             "notify-on-external-modifications",
+                             "notify-user-on-personal-modifications",
+                             "notified-user-on-personal-modifications"];
+            let counter = 1;
+            for each (let sogoProp in sogoProps) {
+                if (props[counter]) {
+                    let propName = "calendar.sogo." + sogoProp;
+                    directory.setProperty(propName, props[counter]);
+                }
+                counter++;
+            }
+        }
 
         directory.name = displayName;
         if (isNew) {
@@ -123,6 +136,11 @@ CalendarHandler.prototype = {
         return sogoBaseURL() + "Calendar";
     },
     additionalDAVProperties: function additionalDAVProperties() {
-        return ["http://apple.com/ns/ical/ calendar-color"];
+        return ["http://apple.com/ns/ical/ calendar-color",
+                "urn:inverse:params:xml:ns:inverse-dav notify-on-personal-modifications",
+                "urn:inverse:params:xml:ns:inverse-dav notify-on-external-modifications",
+                "urn:inverse:params:xml:ns:inverse-dav notify-user-on-personal-modifications",
+                "urn:inverse:params:xml:ns:inverse-dav notified-user-on-personal-modifications"
+                ];
     }
 };
